@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "required": [
+    "ratings"
+  ],
+  "properties": {
+    "ratings": {
+      "type": "array",
+      "uniqueItems": false,
+      "minItems": 0,
+      "additionalItems": true,
+
+
+
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+
+
+        "required": [
+          "id",
+          "economischerisicos",
+          "persoonskenmerken",
+          "perioden",
+          "ongelukkig",
+          "gelukkig",
+          "ontevreden",
+          "tevreden"
+        ],
+
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "economischerisicos": {
+                "type": "string"
+              },
+              "persoonskenmerken": {
+                "type": "string"
+              },
+              "perioden": {
+                "type": "string"
+              },
+              "ongelukkig": {
+                "type": [ "string", "null" ]
+              },
+              "gelukkig": {
+                "type": [ "string", "null" ]
+              },
+              "ontevreden": {
+                "type": [ "string", "null" ]
+              },
+              "tevreden": {
+                "type": [ "string", "null" ]
+              }
+            }
+
+
+
+      }
+
+
+
+    }
+  }
+}

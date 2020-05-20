@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+    </head>
+    <body>
+        <div id="container" style="width: 100%; height: 450px;"></div>
+        <div id="container2" style="width: 100%; height: 450px;"></div>
+        
+        <script>
+            function validateXML(table, XML)
+            {
+                valid = 0;
+                        
+                $.ajax({
+                    url: 'http://localhost/api/validation/JS_XSDvalidate.php',
+                    type: 'POST',
+                    async: false,
+                    data: {
+                        "table": table,
+                        "XML": XML
+                    },
+                    success: function(result) {
+                        valid = result;
+                    }
+                });
+                
+                return valid;
+            }
+
+            function validateJSON(table, JSON)
+            {
+                valid = 0;
+                        
+                $.ajax({
+                    url: 'http://localhost/api/validation/JS_draft07validate.php',
+                    type: 'POST',
+                    async: false,
+                    data: {
+                        "JSON": JSON,
+                        "table": table
+                    },
+                    success: function(result) {
+                        valid = result;
+                    }
+                });
+                
+                return valid;
+            }    
+    
+//            $.ajax({
+//                url: 'http://localhost/api/economischerisicos/xml/3012',
+//                type: 'POST',
+//                data: "<rating><economischerisicos>22</economischerisicos><persoonskenmerken>39</persoonskenmerken><perioden>10</perioden><ongelukkig>10</ongelukkig><gelukkig>10</gelukkig><ontevreden>10</ontevreden><tevreden>10</tevreden></rating>"
+//                ,
+//                success: function(result, textStatus, request) {
+//                    document.write(result);
+//                    alert(request.status);
+//                }
+//            });
+            
+
+//            $.ajax({
+//                url: 'http://localhost/api/economischerisicos/json/3012',
+//                type: 'POST',
+//                data: {
+//                    "economischerisicos": "7077074",
+//                    "persoonskenmerken": "10001",
+//                    "perioden": "2003JJ00",
+//                    "ongelukkig": "13",
+//                    "gelukkig": "87",
+//                    "ontevreden": "17",
+//                    "tevreden": "83"
+//                },
+//                success: function(result, textStatus, request) {
+//                    document.write(result);
+//                    alert(request.status);
+//                }
+//            });
+            
+        
+    
+    
+    
+    
+    
+    
+    
+//            $.ajax({
+//                url: 'http://localhost/api/economischerisicos/xml/3012',
+//                type: 'PUT',
+//                data: "<rating><economischerisicos>22</economischerisicos><persoonskenmerken>39</persoonskenmerken><perioden>10</perioden><ongelukkig>10</ongelukkig><gelukkig>10</gelukkig><ontevreden>10</ontevreden><tevreden>10</tevreden></rating>"
+//                ,
+//                success: function(result, textStatus, request) {
+//                    document.write(result);
+//                    alert(request.status);
+//                }
+//            });
+            
+
+//            $.ajax({
+//                url: 'http://localhost/api/economischerisicos/json/3012',
+//                type: 'PUT',
+//                data: {
+//                    "economischerisicos": "7077074",
+//                    "persoonskenmerken": "10001",
+//                    "perioden": "2003JJ00",
+//                    "ongelukkig": "13",
+//                    "gelukkig": "87",
+//                    "ontevreden": "17",
+//                    "tevreden": "83"
+//                },
+//                success: function(result, textStatus, request) {
+//                    document.write(result);
+//                    alert(request.status);
+//                }
+//            });
+            
+            
+            
+            
+            
+
+            $.ajax({
+                url: 'http://localhost/api/economischerisicos/xml/3010',
+                type: 'DELETE',
+                data: "<rating><economischerisicos>22</economischerisicos><persoonskenmerken>39</persoonskenmerken><perioden>10</perioden><ongelukkig>10</ongelukkig><gelukkig>10</gelukkig><ontevreden>10</ontevreden><tevreden>10</tevreden></rating>"
+                ,
+                success: function(result, textStatus, request) {
+                    document.write(result);
+                    alert(request.status);
+                }
+            });
+            
+
+  
+
+
+
+
+            
+            function objSum(obj)
+            {
+                var sum = 0;
+                for(n in obj)
+                {
+                    sum += parseInt(obj[n]);
+                }
+                
+                return sum;
+            }
+            
+            function objLen(obj)
+            {
+                return Object.keys(obj).length;
+            }
+            
+            function objAvg(obj)
+            {
+                return objSum(obj)/objLen(obj)
+            }
+            
+            
+            
+            //collects json data and turns it into a graph
+            $.ajax({
+                url: 'http://localhost/api/economischerisicos/json/',
+                type: 'GET',
+                async: false,
+                success: function(result) {
+                    
+                    //document.write(result);
+                    valid = validateJSON("economischerisicos", result);
+                    
+                    if(valid)
+                    {
+                        var obj = JSON.parse(result);
+                        ratings = obj.ratings;
+                        ecoRi = {};
+
+                        //Sorteert de ratings van geluk op basis van economischerisicos
+                        for(r in ratings)
+                        {
+                            var rate = ratings[r], ER = rate["economischerisicos"], geluk = rate["gelukkig"];
+                            ecoRi[ER] = ecoRi[ER] === undefined ? {} : ecoRi[ER]; //Maakt instantie object
+
+                            if(geluk != null){
+                                var i = objLen(ecoRi[ER]);
+                                ecoRi[ER][i] = geluk;
+                            }
+                        }
+
+                        //Berekende de gemiddelde waarde
+                        for(r in ecoRi)
+                        {
+                            ecoRi[r] = objAvg(ecoRi[r]);
+                        }
+
+                        //Maakt een array van het object en sorteert deze
+                        ecoRi = Object.entries(ecoRi);
+                        ecoRi.sort(function(a, b){return parseInt(b) - parseInt(a)});
+
+                        //Maakt een grafiek
+                        var data = {
+                            header: ["Economische risico's", "gelukkigheid percentage"],
+                            rows: ecoRi
+                        };
+
+                        var chart = anychart.bar();
+
+                        chart.data(data);
+
+                        chart.title("Economische risico score en gelukkigheid 2003-2012");
+                        chart.container("container");
+                        chart.draw();
+                    }
+                    else{
+                        console.error("invalid JSON file was outputted");
+                    }
+                }
+            });
+            
+            //collects xml data and turns it into a graph
+            $.ajax({
+                url: 'http://localhost/api/gezondheid/xml/',
+                type: 'GET',
+                async: false,
+                success: function(result) {
+                    //document.write(result);
+                    var valid = validateXML("gezondheid", result);
+                    
+                   
+                    xml = $.parseXML(result);
+                    $xml = $( xml );
+                    ratings = $xml.find( "rating" );
+                        
+                    var gezondheid = {};
+                    
+                    ratings.each(function (i) {
+                        rating = ratings[i];
+                        //$id = rating.attributes.id.nodeValue;
+                        
+                        var gezond = rating.children[0].innerHTML;
+                        var geluk = rating.children[4].innerHTML;
+                        
+                        gezondheid[gezond] = gezondheid[gezond] === undefined ? {} : gezondheid[gezond];
+
+                        if(geluk != "null")
+                        {
+                            var i = objLen(gezondheid[gezond]);
+                            gezondheid[gezond][i] = geluk;
+                        }
+                    });     
+                    
+                    
+                    
+                    for(r in gezondheid)
+                    {
+                        gezondheid[r] = objAvg(gezondheid[r]);
+                    }
+                    
+                    console.log(gezondheid);
+                    
+                    gezondheid = Object.entries(gezondheid);
+                    gezondheid.sort(function(a, b){return parseInt(b) - parseInt(a)});
+
+                    
+
+                    //Maakt een grafiek
+                    var data = {
+                        header: ["Gezondheid", "gelukkigheid percentage"],
+                        rows: gezondheid
+                    };
+
+                    var chart = anychart.bar();
+
+                    chart.data(data);
+
+                    chart.title("Gezondheid score en gelukkigheid 2003-2012");
+                    chart.container("container2");
+                    chart.draw();
+                }
+            });            
+            
+            
+            
+
+
+            
+        </script>
+    </body>
+</html>
