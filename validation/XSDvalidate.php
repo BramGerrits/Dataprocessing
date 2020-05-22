@@ -14,7 +14,7 @@
         try
         {
             $xmlDoc->loadXML($xmlString);
-            $result = $xmlDoc->schemaValidate("../api/xsd/".$schemaName.".xsd");
+            $result = $xmlDoc->schemaValidate("../Dataprocessing/xsd/".$schemaName.".xsd");
         }
         catch(Exception $e)
         {
@@ -23,4 +23,18 @@
         return $result;
     }
 
+//    function XML_validate($xml, $schema)
+//    {
+//        $xmlDoc = new DOMDocument();
+//        try
+//        {
+//            $xmlDoc->loadXML($xml);
+//            $result = $xmlDoc->schemaValidate("../Dataprocessing/xsd/".$schemaName.".xsd");
+//        }
+//        catch(Exception $e)
+//        {
+//            $result = false;
+//        }
+//        return $result;
+//    }
 ?>

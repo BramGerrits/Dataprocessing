@@ -1,0 +1,165 @@
+Feed (bulk download)
+https://opendata.cbs.nl/ODataFeed/odata/81465ned/EconomischeRisicoS
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xml:base="http://opendata.cbs.nl/ODataFeed/OData/81465ned" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml">
+  <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS</id>
+  <title type="text">EconomischeRisicoS</title>
+  <updated>2015-01-16T02:00:00+01:00</updated>
+  <link rel="self" title="EconomischeRisicoS" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS" />
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20999')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20999')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve">  999</d:Key>
+        <d:Title>Totaal risico's</d:Title>
+        <d:Description m:null="true" />
+        <d:CategoryGroupID m:type="Edm.Int32">1</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20123')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20123')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve">  123</d:Key>
+        <d:Title>Economisch zelfstandig: niet</d:Title>
+        <d:Description>Situatie waarbij het persoonlijke inkomen uit arbeid of eigen onderneming&#xD;
+lager of gelijk is aan de bijstandsuitkering voor een alleenstaande.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">2</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20456')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20456')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve">  456</d:Key>
+        <d:Title>Economisch zelfstandig: wel</d:Title>
+        <d:Description>Situatie waarbij het persoonlijke inkomen uit arbeid of eigen onderneming&#xD;
+hoger is dan de bijstandsuitkering voor een alleenstaande.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">2</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20789')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%20%20789')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve">  789</d:Key>
+        <d:Title>Financieel onafhankelijk: niet</d:Title>
+        <d:Description>Situatie waarbij het persoonlijke inkomen uit arbeid of eigen onderneming&#xD;
+alsmede uit sociale verzekeringen lager of gelijk is aan de door het CBS&#xD;
+gehanteerde lage-inkomensgrens voor een eenpersoonshuishouden.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">3</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%201234')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%201234')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve"> 1234</d:Key>
+        <d:Title>Financieelonafhankelijk: wel</d:Title>
+        <d:Description>Situatie waarbij het persoonlijke inkomen uit arbeid of eigen onderneming&#xD;
+alsmede uit sociale verzekeringen hoger is dan de door het CBS&#xD;
+gehanteerde lage-inkomensgrens voor een eenpersoonshuishouden.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">3</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%205678')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%205678')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve"> 5678</d:Key>
+        <d:Title>Dienstverband: voltijd</d:Title>
+        <d:Description>Een voltijdbaan is een baan met het voor het bedrijf geldende aantal uren&#xD;
+behorende bij een volledige werktijd.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">4</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%209012')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%209012')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve"> 9012</d:Key>
+        <d:Title>Dienstverband: deeltijd</d:Title>
+        <d:Description>Alle banen anders dan voltijdbanen van werknemers (het voor het bedrijf&#xD;
+geldende aantal uren behorende bij een volledige werktijd) zijn&#xD;
+deeltijdbanen.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">4</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+  <entry>
+    <id>https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%203456')</id>
+    <category term="Cbs.OData.Category" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <link rel="self" href="https://opendata.cbs.nl/ODataFeed/OData/81465ned/EconomischeRisicoS('%203456')" />
+    <title />
+    <updated>2015-01-16T02:00:00+01:00</updated>
+    <author>
+      <name />
+    </author>
+    <content type="application/xml">
+      <m:properties>
+        <d:Key xml:space="preserve"> 3456</d:Key>
+        <d:Title>Dienstverband: flexibel</d:Title>
+        <d:Description>Werknemers met wie geen vaste arbeidsduur is overeengekomen. Flexibele&#xD;
+banen zijn banen van uitzend-, oproep-, afroep- en invalkrachten en&#xD;
+andere werknemers met wie geen vaste arbeidsduur is overeengekomen.</d:Description>
+        <d:CategoryGroupID m:type="Edm.Int32">4</d:CategoryGroupID>
+      </m:properties>
+    </content>
+  </entry>
+</feed>

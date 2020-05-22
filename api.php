@@ -1,12 +1,10 @@
-<?php
-    header('Cache-Control: no-cache, must-revalidate');
-    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    error_reporting(E_ALL ^ E_WARNING); //Removes error ouput, prevents unpredicted ouput for the user
-    
+<?php    
     include 'databaseFunctions.php';
     include 'formatFunctions.php';
     include 'validation/draft07validate.php';
     include 'validation/XSDvalidate.php';
+    
+    include 'requestdata.php';
     
     /**
     * Collects the body data from the api/server request
@@ -46,20 +44,34 @@
     * @author Bram Gerrits
     * @return The uri data
     */ 
-    function uriData($root)
+    function uriData($root, $parameterNames) 
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        $uri = str_replace($root, "", $uri);
-        $parameters = explode("/", $uri);
-        foreach($parameters as $key => $parameter){
-            if($parameters[$key] == ""){
-                unset($parameters[$key]);
+        $uri = str_replace($root, "", $_SERVER['REQUEST_URI']);
+        $uriData = [];
+        if($uri != null)
+        {
+            if(is_array ($parameterNames))
+            {
+
+                $parameters = explode("/", $uri);
+                foreach($parameters as $key => $parameter){
+                    if($parameters[$key] == "")
+                    {
+                        unset($parameters[$key]);
+                    }
+                }
+                if(count($parameters) === count($parameterNames))
+                {
+                    for($i = 0; $i < count($parameterNames); $i++)
+                    {
+                        $uriData[$parameterNames[$i]] = $parameters[$i];
+                    }
+                }
             }
         }
-        
-        return $parameters;
-    }    
-    
+        return $uriData;
+    }
+
     /**
     * Checks if uri data is valid
     * 
@@ -80,7 +92,7 @@
             die("Invalid Endpoint: $ariValue");
         }
     }
-
+    
     /**
     * function for the GET request, collects specified data from the database in the given format
     * 
@@ -279,18 +291,26 @@
     
     
     
-    
-    
     //Constanten
-    const ROOT = "/api/";   
+    const ROOT = "/Dataprocessing/";   
     const TABLES = array("gezondheid", "leefomgeving", "economischerisicos");
     const FILE_TYPES = array("json", "xml");
-   
+  
+    
     //Request data
-    $uriData = uriData(ROOT); //Ontvang Uri data
-    $table = validUriParam($uriData[0], TABLES);
-    $format = validUriParam($uriData[1], FILE_TYPES);
-    $id = isset($uriData[2]) ? $uriData[2] : null;    
+    $uriData = uriData(ROOT, ["Table", "Format", "Id"]); //Ontvang Uri data
+    
+    $contentType = $uriData["Format"] == "xml" ? "xml" : "javascript";
+    
+    header('Content-type: text/'.$contentType);
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    error_reporting(E_ALL ^ E_WARNING); //Removes error ouput, prevents unpredicted ouput for the user
+    
+    //var_export($uriData);
+    $table = validUriParam($uriData["Table"], TABLES);
+    $format = validUriParam($uriData["Format"], FILE_TYPES);
+    $id = isset($uriData[2]) ? $uriData["Id"] : null;    
     $data = bodyData(); //Datafield uit de body van de request. 
     
     connect("127.0.0.1", "root", "", "dataprocessing");
