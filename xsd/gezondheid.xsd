@@ -81,7 +81,14 @@
                             <xs:element name="tevreden" type="bram:percentageOrNull" />
 
                         </xs:sequence>
-                        <xs:attribute type="xs:integer" name="id" use="required"/>
+                        <xs:attribute name="id" use="required">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:integer">
+                                    <xs:minInclusive value="0"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
