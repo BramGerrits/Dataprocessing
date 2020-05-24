@@ -3,95 +3,7 @@
     include 'formatFunctions.php';
     include 'validation/draft07validate.php';
     include 'validation/XSDvalidate.php';
-    
     include 'requestdata.php';
-    
-    /**
-    * Collects the body data from the api/server request
-    * 
-    * @author Bram Gerrits
-    * @return The body data
-    */ 
-    function bodyData()
-    {
-        $result = null;
-        
-        switch($_SERVER['REQUEST_METHOD']){
-            case "GET":
-                //$result = isset($_GET[$name]) ? $_GET[$name] : null;
-                $result = $_GET;
-                break;
-            case "POST":
-                //$result = isset($_POST[$name]) ? $_POST[$name] : null;
-                $result = $_POST;
-                break;
-            case "PUT":
-            case "DELETE":
-                parse_str(file_get_contents("php://input"),$_PUTDELETE);
-                //$result = isset($_PUTDELETE[$name]) ? $_PUTDELETE[$name] : null;
-                $result = $_PUTDELETE;
-                break;  
-        }
-
-        return $result;
-    } 
-    
-    /**
-    * Collects the body data from the api/server request
-    * 
-    * @param $root The root folder of the api
-    * 
-    * @author Bram Gerrits
-    * @return The uri data
-    */ 
-    function uriData($root, $parameterNames) 
-    {
-        $uri = str_replace($root, "", $_SERVER['REQUEST_URI']);
-        $uriData = [];
-        if($uri != null)
-        {
-            if(is_array ($parameterNames))
-            {
-
-                $parameters = explode("/", $uri);
-                foreach($parameters as $key => $parameter){
-                    if($parameters[$key] == "")
-                    {
-                        unset($parameters[$key]);
-                    }
-                }
-                if(count($parameters) === count($parameterNames))
-                {
-                    for($i = 0; $i < count($parameterNames); $i++)
-                    {
-                        $uriData[$parameterNames[$i]] = $parameters[$i];
-                    }
-                }
-            }
-        }
-        return $uriData;
-    }
-
-    /**
-    * Checks if uri data is valid
-    * 
-    * @param $ariValue       A ari value
-    * @param $possibleValues A list of valid values, which $ariValue must be one of
-    * 
-    * @author Bram Gerrits
-    * @return $ariValue
-    */ 
-    function validUriParam($ariValue, $possibleValues)
-    {
-        if(isset($ariValue) && in_array($ariValue, $possibleValues))
-        {
-            return $ariValue;
-        }
-        else
-        {
-            die("Invalid Endpoint: $ariValue");
-        }
-    }
     
     /**
     * function for the GET request, collects specified data from the database in the given format
@@ -296,13 +208,12 @@
     const TABLES = array("gezondheid", "leefomgeving", "economischerisicos");
     const FILE_TYPES = array("json", "xml");
   
-    
     //Request data
     $uriData = uriData(ROOT, ["Table", "Format", "Id"]); //Ontvang Uri data
     
-    $contentType = $uriData["Format"] == "xml" ? "xml" : "javascript";
-    
-    header('Content-type: text/'.$contentType);
+    //Headers
+    $contentType = $uriData["Format"] == "xml" ? "text/xml" : "application/json";
+    header('Content-type: '.$contentType);
     header('Cache-Control: no-cache, must-revalidate');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     error_reporting(E_ALL ^ E_WARNING); //Removes error ouput, prevents unpredicted ouput for the user
@@ -333,5 +244,96 @@
             echo null;
             break;
     }
+    
+    //  https://www.liquid-technologies.com/online-json-schema-validator
+    //  https://www.freeformatter.com/xml-validator-xsd.html
+    
+    
+    
+        //economische zelfstandigheid, financiële onafhankelijkheid en het dienstverband
+    //JJ in periode betekend dat het kwartaal niet bekend is.
+    //Het cbs beschrijft het ecnomischrisico en persoonkenmerken type als een 'dimension'
+    
+
+    
+
+    
+    //Leefomgeving:
+    //999      Totaal leefomgeving
+    //18550    Stedelijkheid: zeer sterk stedelijk
+    //18900    Stedelijkheid: sterk stedelijk
+    //18950    Stedelijkheid: matig stedelijk
+    //19000    Stedelijkheid: weinig stedelijk
+    //19050    Stedelijkheid: niet stedelijk
+    
+    //Gezondheid:
+    //999      Totaal gezondheid
+    //123      Gezondheid: zeer goed
+    //456      Gezondheid: goed
+    //789      Gezondheid: minder dan goed
+    //1234     Roken: niet
+    //5678     Roken: wel
+    //12       Alcoholgebruik: drinkt niet
+    //34       Alcoholgebruik: matige drinker <6 glazen per week
+    //56       Alcoholgebruik: zware drinker, 6>= glazen per week
+    //901      Gewicht: ondergewicht
+    //234      Gewicht: gezond gewicht
+    //567      Gewicht: overgewicht
+    //890      Gewicht: ernstig overgewicht
+    //23       Beweging: voldoet niet aan norm
+    //45       Beweging: voldoet aan norm
+    
+    
+    //Economisch risico:
+    //3456     Dienstverband: flexibel
+    //9012     Dienstverband: deeltijd
+    //5678     Dienstverband: voltijd
+    //1234     Financieelonafhankelijk: wel
+    //789      Financieel onafhankelijk: niet
+    //456      Economisch zelfstandig: wel
+    //123      Economisch zelfstandig: niet
+    //999      Totaal risico's (totaal van alle bij elkaar)
+    
+    
+    
+    
+    //Persoonskenmerken:
+    //10001    Totaal personen
+    //15400    Mannen
+    //15450    Vrouwen
+    //53110    18 tot 35 jaar
+    //53705    35 tot 50 jaar
+    //53850    50 tot 65 jaar
+    //15700    65 jaar of ouder
+    //12600    Herkomst: autochtoon
+    //12650    Herkomst: westerse allochtoon
+    //13000    Herkomst: niet-westerse allochtoon
+    
+        
+    
+    
+    
+//    $persKenCodes = array();
+//    $persKenCodes[10001] = "Totaal/Gemiddelde";
+//    $persKenCodes[15400] = "Mannen";
+//    $persKenCodes[15450] = "Vrouwen";
+//    $persKenCodes[53110] = "18 tot 35 jaar";
+//    $persKenCodes[53705] = "35 tot 50 jaar";
+//    $persKenCodes[53850] = "50 tot 65 jaar";
+//    $persKenCodes[15700] = "65 jaar of ouder";
+//    $persKenCodes[15700] = "65 jaar of ouder";
+//    
+//    
+//    
+//    $ecoRiCodes = array();
+//    $ecoRiCodes[3456] = "Dienstverband: flexibel";
+//    $ecoRiCodes[9012] = "Dienstverband: deeltijd";
+//    $ecoRiCodes[5678] = "Dienstverband: voltijd";
+//    $ecoRiCodes[1234] = "Financieel onafhankelijk: wel";
+//    $ecoRiCodes[789] = "Financieel onafhankelijk: niet";
+//    $ecoRiCodes[456] = "Economisch zelfstandig: wel";
+//    $ecoRiCodes[123] = "Economisch zelfstandig: niet";
+//    $ecoRiCodes[999] = "Totaal/Gemiddelde";
+    
     
 ?>
