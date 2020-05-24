@@ -5,28 +5,76 @@
     xmlns:bram="https://bramgerrits.com/"
     >
 
-
+    <xs:simpleType name="percentageOrNull">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base='xs:string'>
+                    <xs:length value="0"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="100"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+        
     <xs:element name="ratings">
         <xs:complexType>
             <xs:sequence>
-
-
                 <xs:element name="rating" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="leefomgeving" type="xs:float"/>
-                            <xs:element name="persoonskenmerken" type="xs:float"/>
-                            <xs:element name="perioden" type="xs:string"/>
-                            <xs:element name="ongelukkig" type="xs:string" nillable="true"/>
-                            <xs:element name="gelukkig" type="xs:string" nillable="true"/>
-                            <xs:element name="ontevreden" type="xs:string" nillable="true"/>
-                            <xs:element name="tevreden" type="xs:string" nillable="true"/>
+                            <xs:element name="leefomgeving">
+                                <xs:simpleType final="restriction" >
+                                    <xs:restriction base="xs:integer">
+                                        <xs:enumeration value="999" />
+                                        <xs:enumeration value="18550" />
+                                        <xs:enumeration value="18900" />
+                                        <xs:enumeration value="18950" />
+                                        <xs:enumeration value="19000" />
+                                        <xs:enumeration value="19050" />                      
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            
+                            <xs:element name="persoonsKenmerken">
+                                <xs:simpleType final="restriction" >
+                                    <xs:restriction base="xs:integer">
+                                        <xs:enumeration value="10001" />
+                                        <xs:enumeration value="15400" />
+                                        <xs:enumeration value="15450" />
+                                        <xs:enumeration value="53110" />
+                                        <xs:enumeration value="53705" />
+                                        <xs:enumeration value="53850" />
+                                        <xs:enumeration value="15700" />
+                                        <xs:enumeration value="12600" />
+                                        <xs:enumeration value="12650" />
+                                        <xs:enumeration value="13000" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+
+
+                            <xs:element name="perioden">
+                                <xs:simpleType final="restriction" > 
+                                    <xs:restriction base="xs:string"> 
+                                        <xs:pattern value="[0-9]{4}(XX|JJ|KW)[0-9]{2}"/> 
+                                    </xs:restriction> 
+                                </xs:simpleType>
+                            </xs:element>
+
+                            <xs:element name="ongelukkig" type="bram:percentageOrNull" />
+                            <xs:element name="gelukkig" type="bram:percentageOrNull" />
+                            <xs:element name="ontevreden" type="bram:percentageOrNull" />
+                            <xs:element name="tevreden" type="bram:percentageOrNull" />
+
                         </xs:sequence>
                         <xs:attribute type="xs:integer" name="id" use="required"/>
                     </xs:complexType>
                 </xs:element>
-
-
             </xs:sequence>
         </xs:complexType>
     </xs:element>

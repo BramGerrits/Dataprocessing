@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="XMLschema.xsd">
     <rating id="1">
-        <economischeRisicos> 999 </economischeRisicos>
+        <gezondheid> 999 </gezondheid>
         <persoonsKenmerken> 10001 </persoonsKenmerken>
         <perioden>2003JJ00</perioden>
         <ongelukkig> 13 </ongelukkig>
@@ -12,7 +12,7 @@
         <tevreden> 83 </tevreden>
     </rating>
     <rating id="2">
-      <economischeRisicos> 999 </economischeRisicos>
+      <gezondheid> 999 </gezondheid>
       <persoonsKenmerken> 10001 </persoonsKenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
@@ -21,7 +21,7 @@
       <tevreden> 83 </tevreden>
     </rating>
     <rating id="3">
-      <economischeRisicos> 999 </economischeRisicos>
+      <gezondheid> 999 </gezondheid>
       <persoonsKenmerken> 10001 </persoonsKenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
