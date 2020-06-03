@@ -38,32 +38,19 @@
     * @author Bram Gerrits
     * @return The uri data
     */ 
-    function uriData($root, $parameterNames) 
+    function uriData($root) 
     {
         $uri = str_replace($root, "", $_SERVER['REQUEST_URI']);
-        $uriData = [];
-        if($uri != null)
-        {
-            if(is_array ($parameterNames))
+        
+        $parameters = explode("/", $uri);
+        foreach($parameters as $key => $parameter){
+            if($parameters[$key] == "")
             {
-
-                $parameters = explode("/", $uri);
-                foreach($parameters as $key => $parameter){
-                    if($parameters[$key] == "")
-                    {
-                        unset($parameters[$key]);
-                    }
-                }
-                if(count($parameters) === count($parameterNames))
-                {
-                    for($i = 0; $i < count($parameterNames); $i++)
-                    {
-                        $uriData[$parameterNames[$i]] = $parameters[$i];
-                    }
-                }
+                unset($parameters[$key]);
             }
         }
-        return $uriData;
+        
+        return $parameters;
     }
 
     /**

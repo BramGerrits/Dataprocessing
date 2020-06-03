@@ -1,68 +1,69 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "type": "object",
-  "title": "The Root Schema",
-  "description": "The root schema comprises the entire JSON document.",
-  "required": [
-    "ratings"
-  ],
-  "properties": {
-    "ratings": {
-      "type": "array",
-      "uniqueItems": false,
-      "minItems": 0,
-      "additionalItems": true,
-
-
-
-      "items": {
-        "type": "object",
-
-
-        "required": [
-          "id",
-          "gezondheid",
-          "persoonskenmerken",
-          "perioden",
-          "ongelukkig",
-          "gelukkig",
-          "ontevreden",
-          "tevreden"
-        ],
-
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "required": [
+        "ratings"
+    ],
+    "properties": {
+        "ratings": {
+            "type": "object",
+            "default": {},
             "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "gezondheid": {
-                "type": "string"
-              },
-              "persoonskenmerken": {
-                "type": "string"
-              },
-              "perioden": {
-                "type": "string"
-              },
-              "ongelukkig": {
-                "type": [ "string", "null" ]
-              },
-              "gelukkig": {
-                "type": [ "string", "null" ]
-              },
-              "ontevreden": {
-                "type": [ "string", "null" ]
-              },
-              "tevreden": {
-                "type": [ "string", "null" ]
-              }
+                "id": {
+                    "type": "object",
+                    "default": {},
+                    "required": [
+                        "gezondheid",
+                        "persoonskenmerken",
+                        "perioden",
+                        "ongelukkig",
+                        "gelukkig",
+                        "ontevreden",
+                        "tevreden"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "gezondheid": {
+                            "type": "integer",
+                            "enum": [999, 123, 456, 789, 1234, 5678, 12, 34, 56, 901, 234, 567, 890, 23, 45]
+                        },
+                        "persoonskenmerken": {
+                            "type": "integer",
+                            "enum": [10001, 15400, 15450, 53110, 53705, 53850, 15700, 12600, 12650, 13000]
+                        },
+                        "perioden": {
+                            "type": "string",
+                            "pattern": "[0-9]{4}(XX|JJ|KW)[0-9]{2}"
+                        },
+                        "ongelukkig": {
+                            "type": [ "integer", "null" ],
+                            "default": null,
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "gelukkig": {
+                            "type": [ "integer", "null" ],
+                            "default": null,
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "ontevreden": {
+                            "type": [ "integer", "null" ],
+                            "default": null,
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "tevreden": {
+                            "type": [ "integer", "null" ],
+                            "default": null,
+                            "minimum": 0,
+                            "maximum": 100
+                        }
+                    }
+                }
             }
-
-
-
-      }
-
-
-
+        }
     }
-  }
 }

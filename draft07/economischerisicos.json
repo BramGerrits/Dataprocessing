@@ -15,8 +15,8 @@
                     "type": "object",
                     "default": {},
                     "required": [
-                        "economischeRisicos",
-                        "persoonsKenmerken",
+                        "economischerisicos",
+                        "persoonskenmerken",
                         "perioden",
                         "ongelukkig",
                         "gelukkig",
@@ -25,11 +25,11 @@
                     ],
                     "additionalProperties": false,
                     "properties": {
-                        "economischeRisicos": {
+                        "economischerisicos": {
                             "type": "integer",
                             "enum": [3456, 9012, 5678, 1234, 789, 456, 123, 999]
                         },
-                        "persoonsKenmerken": {
+                        "persoonskenmerken": {
                             "type": "integer",
                             "enum": [10001, 15400, 15450, 53110, 53705, 53850, 15700, 12600, 12650, 13000]
                         },

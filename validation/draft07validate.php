@@ -33,7 +33,6 @@
         
         $result = isset($result["valid"]) && $result["valid"] == TRUE ? 1 : 0;
         
-        
         return $result;
     }
     
@@ -48,8 +47,7 @@
     */ 
     function JSON_validate($json, $name)
     {
-        $schema = file_get_contents("../api/draft07/".$name.".json");
-
+        $schema = file_get_contents("../Dataprocessing/draft07/".$name.".json");
         $result = DRAFT07_validate($json, $schema);     
         
         return $result;

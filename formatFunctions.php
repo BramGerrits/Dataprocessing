@@ -46,7 +46,7 @@
             $xml = new SimpleXMLElement(MAIN_TAG);
 
             foreach($array as $key => $data){
-                $data = $data == null ? "null" : $data;
+                $data = $data == null ? "" : $data;
 
                 if($key == "id"){
                     $xml->addAttribute("id",$data);
@@ -123,6 +123,18 @@
         return $values;
     }
 
+    function arrayValuesToNumbers($array)
+    {
+        foreach ($array as $key => $value)
+        {
+            if(is_numeric($value))
+            {
+                $array[$key] = (int)$value;
+            }
+        }
+        return $array;
+    }
+    
     /**
     * Converts a array to a valid json document
     *
@@ -133,20 +145,23 @@
     */ 
     function JSON($array)
     { 
+        $array = arrayValuesToNumbers($array);
+        
+        
         $json = "";
         $json = $json.'{';
         $json = $json.'"ratings": ';
         
         if(!isset($array[0]))
         {
-            $json = $json.'[';
+            $json = $json.'{';
         }
         
         $json = $json.json_encode($array);
         
         if(!isset($array[0]))
         {
-            $json = $json.']';
+            $json = $json.'}';
         }
         
         $json = $json.'}';     

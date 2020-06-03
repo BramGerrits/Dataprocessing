@@ -132,21 +132,17 @@
             {
                 if(is_array($data) && isset($data))
                 {
+                    $json = array_flip($data)[""]; 
+                    $json = str_replace ("_", " ", $json); //Verwijderd lage strepen die kunnen voorkomen in een verzoek
                     
-                    //Juiste formaat maken
-                    $data["id"] = 1;
-                    $json = JSON($data);
-                    //Juiste formaat maken
-
-                    
-                    
-                    if(JSON_validate($json, $table)){
-                        //Data voorbereiden voor database
-                        unset($data["id"]);
-                        $values = $data;
-                        //Data voorbereiden voor database
-
-                        updateValue($table, $values, $id);
+                    if(JSON_validate($json, $table))
+                    {
+                        $jsonArr = json_decode($json);                    
+                        $newValues = reset($jsonArr->ratings);
+                        var_export($newValues);
+                        $newValues = json_decode(json_encode($newValues), true);
+                        
+                        updateValue($table, $newValues, $id);
                     }  
                     else{
                         die("Invalid JSON input");
@@ -209,20 +205,22 @@
     const FILE_TYPES = array("json", "xml");
   
     //Request data
-    $uriData = uriData(ROOT, ["Table", "Format", "Id"]); //Ontvang Uri data
+    $uriData = uriData(ROOT); //Ontvang Uri data
     
     //Headers
-    $contentType = $uriData["Format"] == "xml" ? "text/xml" : "application/json";
-    header('Content-type: '.$contentType);
+    //$contentType = $uriData[1] == "xml" ? "text/xml" : "application/json";
+    //header('Content-type: '.$contentType);
     header('Cache-Control: no-cache, must-revalidate');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     error_reporting(E_ALL ^ E_WARNING); //Removes error ouput, prevents unpredicted ouput for the user
     
     //var_export($uriData);
-    $table = validUriParam($uriData["Table"], TABLES);
-    $format = validUriParam($uriData["Format"], FILE_TYPES);
-    $id = isset($uriData[2]) ? $uriData["Id"] : null;    
+    $table = validUriParam($uriData[0], TABLES);
+    $format = validUriParam($uriData[1], FILE_TYPES);
+    $id = isset($uriData[2]) ? $uriData[2] : null;    
     $data = bodyData(); //Datafield uit de body van de request. 
+    
+    //var_export($data);
     
     connect("127.0.0.1", "root", "", "dataprocessing");
 
@@ -266,6 +264,8 @@
     //19000    Stedelijkheid: weinig stedelijk
     //19050    Stedelijkheid: niet stedelijk
     
+     
+    
     //Gezondheid:
     //999      Totaal gezondheid
     //123      Gezondheid: zeer goed
@@ -282,8 +282,7 @@
     //890      Gewicht: ernstig overgewicht
     //23       Beweging: voldoet niet aan norm
     //45       Beweging: voldoet aan norm
-    
-    
+
     //Economisch risico:
     //3456     Dienstverband: flexibel
     //9012     Dienstverband: deeltijd

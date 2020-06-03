@@ -1,17 +1,17 @@
 {
     "ratings": {
         "1": {
-            "economischeRisicos": 999,
-            "persoonsKenmerken": 10001,
-            "perioden": "2003JJ00",
+            "economischerisicos": 999,
+            "persoonskenmerken": 10001,
+            "perioden": "2006JJ00",
             "ongelukkig": 13,
             "gelukkig": 87,
             "ontevreden": 17,
             "tevreden": 83
         },
         "2": {
-            "economischeRisicos": 999,
-            "persoonsKenmerken": 10001,
+            "economischerisicos": 999,
+            "persoonskenmerken": 10001,
             "perioden": "2003JJ00",
             "ongelukkig": 13,
             "gelukkig": 87,
@@ -19,8 +19,8 @@
             "tevreden": 83
         },
         "3": {
-            "economischeRisicos": 999,
-            "persoonsKenmerken": 10001,
+            "economischerisicos": 999,
+            "persoonskenmerken": 10001,
             "perioden": "2003JJ00",
             "ongelukkig": 13,
             "gelukkig": 87,
