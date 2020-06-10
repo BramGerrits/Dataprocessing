@@ -184,6 +184,8 @@
         $stmt->bindParam(':tevreden', $array["tevreden"]);
         $stmt->bindParam(':id', $id);
         
+        //var_export($array[$table]);
+        
         $stmt->execute();  
     }
     

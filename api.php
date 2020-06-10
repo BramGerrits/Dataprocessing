@@ -18,11 +18,8 @@
     function GET($table, $format, $id)
     {
         $result = null;
-        
-
         if($id == null)
         {
-            
             if($format == "json")
             {
                 $json = JSON(getAll($table));
@@ -75,42 +72,39 @@
         if($format == "json")
         {
             if(is_array($data) && isset($data))
-            {
-                //Juiste formaat maken
-                $data["id"] = 1;
-                $json = JSON($data);
-                //Juiste formaat maken
-            
-                if(JSON_validate($json, $table)){
-                    echo "valid";
+            {   
+                $json = $data["data"];
+                $json = str_replace ("_", " ", $json); //Lage strepen weghalen die kunnen voorkomen in een postman request
+                
+                if(JSON_validate($json, $table))
+                {
+                    $values = json_decode($json);
                     
-                    //Data voorbereiden voor database
-                    unset($data["id"]);
-                    $values = $data;
-                    //Data voorbereiden voor database
-                    
-                    addTo($table, $values);
+                    foreach($values->ratings as $values)
+                    {
+                        addTo($table, json_decode(json_encode($values), true));
+                    }
                 }   
             }
         }
         else
         {
-            $input = $data;
-            if(is_string($input))
+            $xml = $data["data"];
+            $xml = str_replace ("_", " ", $xml); //Lage strepen weghalen die kunnen voorkomen in een postman request
+            $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
+ 
+            if(XML_validate($xml, $table))
             {
-                //Juiste formaat maken
-                $input = str_replace("<rating>", "<rating id='1'>", $input);
-                $xml = XML_wrapRoot($input, $table);
-                
-                //Juiste formaat maken
-                
-                if(XML_validate($xml, $table))
+                $obj = XMLtoValues($xml);
+                foreach($obj as $values)
                 {
-                    $values = XMLtoValues($xml);
-                    addTo($table, $values );
-                }  
-            }
+                    addTo($table, $values);
+                }
+            }  
         }
+        
     }
     
     /**
@@ -132,14 +126,18 @@
             {
                 if(is_array($data) && isset($data))
                 {
+                    
                     $json = array_flip($data)[""]; 
                     $json = str_replace ("_", " ", $json); //Verwijderd lage strepen die kunnen voorkomen in een verzoek
+                    
+                    //var_export($json);
+                    //var_dump($json);
                     
                     if(JSON_validate($json, $table))
                     {
                         $jsonArr = json_decode($json);                    
                         $newValues = reset($jsonArr->ratings);
-                        var_export($newValues);
+                        //var_export($newValues);
                         $newValues = json_decode(json_encode($newValues), true);
                         
                         updateValue($table, $newValues, $id);
@@ -158,14 +156,20 @@
                 $input = isset(array_keys($data)[0]) ? array_keys($data)[0] : null;
                 if(is_string($input))
                 {
-                    //Juiste formaat maken voor validatie
-                    $input = str_replace("<rating>", "<rating id='1'>", $input);
-                    $xml = XML_wrapRoot($input, $table);
-                    //Juiste formaat maken voor validatie
-
+                    //$xml = $data;
+                    $xml = array_key_first($data);
+                    $xml = str_replace ("_", " ", $xml);
+                    $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                        xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
+                    
+                    //var_export(XML_validate($xml, $table));
+                    
                     if(XML_validate($xml, $table))
                     {
                         $values = XMLtoValues($xml);
+                        $values = isset($values[0]) ? $values[0] : $values; //Kijkt of er meerdere elementen zijn opgestuurd.
+                        //var_export($values);
                         updateValue($table, $values, $id);
                     }
                     else{
@@ -208,8 +212,8 @@
     $uriData = uriData(ROOT); //Ontvang Uri data
     
     //Headers
-    //$contentType = $uriData[1] == "xml" ? "text/xml" : "application/json";
-    //header('Content-type: '.$contentType);
+    $contentType = $uriData[1] == "xml" ? "text/xml" : "application/json";
+    header('Content-type: '.$contentType);
     header('Cache-Control: no-cache, must-revalidate');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     error_reporting(E_ALL ^ E_WARNING); //Removes error ouput, prevents unpredicted ouput for the user

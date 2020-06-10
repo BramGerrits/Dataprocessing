@@ -27,8 +27,8 @@
                 <xs:element name="rating" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="economischeRisicos">
-                                <xs:simpleType final="restriction" >
+                            <xs:element name="economischerisicos">
+                                <xs:simpleType>
                                     <xs:restriction base="xs:integer">
                                         <xs:enumeration value="3456" />
                                         <xs:enumeration value="9012" />
@@ -42,8 +42,8 @@
                                 </xs:simpleType>
                             </xs:element>
                             
-                            <xs:element name="persoonsKenmerken">
-                                <xs:simpleType final="restriction" >
+                            <xs:element name="persoonskenmerken">
+                                <xs:simpleType>
                                     <xs:restriction base="xs:integer">
                                         <xs:enumeration value="10001" />
                                         <xs:enumeration value="15400" />
@@ -61,7 +61,7 @@
 
 
                             <xs:element name="perioden">
-                                <xs:simpleType final="restriction" > 
+                                <xs:simpleType> 
                                     <xs:restriction base="xs:string"> 
                                         <xs:pattern value="[0-9]{4}(XX|JJ|KW)[0-9]{2}"/> 
                                     </xs:restriction> 
@@ -74,7 +74,7 @@
                             <xs:element name="tevreden" type="bram:percentageOrNull" />
 
                         </xs:sequence>
-                        <xs:attribute name="id" use="required">
+                        <xs:attribute name="id">
                             <xs:simpleType>
                                 <xs:restriction base="xs:integer">
                                     <xs:minInclusive value="0"/>

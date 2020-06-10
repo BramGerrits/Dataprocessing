@@ -30,6 +30,9 @@
 
         $result = get_object_vars(json_decode($result));
         
+        //var_export($result);
+        //echo $schema;
+        //echo $json;
         
         $result = isset($result["valid"]) && $result["valid"] == TRUE ? 1 : 0;
         

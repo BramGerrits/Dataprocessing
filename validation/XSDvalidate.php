@@ -11,15 +11,18 @@
     function XML_validate($xmlString, $schemaName)
     {
         $xmlDoc = new DOMDocument();
-        try
-        {
-            $xmlDoc->loadXML($xmlString);
-            $result = $xmlDoc->schemaValidate("../Dataprocessing/xsd/".$schemaName.".xsd");
-        }
-        catch(Exception $e)
-        {
-            $result = false;
-        }
+
+        libxml_use_internal_errors(true);
+        
+        $xmlDoc->loadXML($xmlString);
+        $result = $xmlDoc->schemaValidate("../Dataprocessing/xsd/".$schemaName.".xsd");
+        
+        $errors = libxml_get_errors();
+//        foreach ($errors as $error) {
+//            print_r($error);
+//        }
+        libxml_clear_errors();
+        
         return $result;
     }
 

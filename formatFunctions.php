@@ -145,26 +145,18 @@
     */ 
     function JSON($array)
     { 
+        $array = isset($array['id']) ? [$array] : $array;
         $array = arrayValuesToNumbers($array);
+        $jsonArray = [];
         
-        
-        $json = "";
-        $json = $json.'{';
-        $json = $json.'"ratings": ';
-        
-        if(!isset($array[0]))
+        foreach($array as $key => $value)
         {
-            $json = $json.'{';
+            $id = $array[$key]["id"];
+            unset($array[$key]["id"]);
+            
+            $jsonArray[$id] = $array[$key];
         }
         
-        $json = $json.json_encode($array);
-        
-        if(!isset($array[0]))
-        {
-            $json = $json.'}';
-        }
-        
-        $json = $json.'}';     
-        return $json;
+        return '{"ratings": '.json_encode($jsonArray).'}';
     }
 ?>

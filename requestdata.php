@@ -25,8 +25,8 @@
                 //$result = isset($_PUTDELETE[$name]) ? $_PUTDELETE[$name] : null;
                 $result = $_PUTDELETE;
                 break;  
+            
         }
-
         return $result;
     } 
     

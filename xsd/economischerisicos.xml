@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="XMLschema.xsd">
     <rating id="1">
-        <economischeRisicos> 999 </economischeRisicos>
-        <persoonsKenmerken> 10001 </persoonsKenmerken>
+        <economischerisicos> 999 </economischerisicos>
+        <persoonskenmerken> 10001 </persoonskenmerken>
         <perioden>2003JJ00</perioden>
         <ongelukkig> 13 </ongelukkig>
         <gelukkig> 87 </gelukkig>
@@ -12,8 +12,8 @@
         <tevreden> 83 </tevreden>
     </rating>
     <rating id="2">
-      <economischeRisicos> 999 </economischeRisicos>
-      <persoonsKenmerken> 10001 </persoonsKenmerken>
+      <economischerisicos> 999 </economischerisicos>
+      <persoonskenmerken> 10001 </persoonskenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
       <gelukkig> 87 </gelukkig>
@@ -21,8 +21,8 @@
       <tevreden> 83 </tevreden>
     </rating>
     <rating id="3">
-      <economischeRisicos> 999 </economischeRisicos>
-      <persoonsKenmerken> 10001 </persoonsKenmerken>
+      <economischerisicos> 999 </economischerisicos>
+      <persoonskenmerken> 10001 </persoonskenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
       <gelukkig> 87 </gelukkig>
