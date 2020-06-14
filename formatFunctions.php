@@ -17,6 +17,14 @@
                     xsi:noNamespaceSchemaLocation="'.$schemaName.'.xsd">'.$xml."</ratings>";
     }
     
+    function XML_giveRoot($xml)
+    {
+        $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
+        return $xml;
+    }
+    
     /**
     * removes the xml version tag.
     *

@@ -139,12 +139,15 @@
     */ 
     function deleteValue($id, $table)
     {
-        global $conn;
-        
-        $sql = "DELETE from $table WHERE id = :id;";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();    
+        if($id != null && is_numeric($id))
+        {
+            global $conn;
+
+            $sql = "DELETE from $table WHERE id = :id;";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();    
+        }
     }
     
     /**
