@@ -14,9 +14,11 @@ and open the template in the editor.
     </head>
     <body>
         <div id="container" style="width: 100%; height: 450px;"></div>
-        <div id="container2" style="width: 100%; height: 450px;"></div>
         
         <script>
+
+
+
             function validateXML(table, XML)
             {
                 valid = 0;
@@ -97,16 +99,16 @@ and open the template in the editor.
     
     
     
-//            $.ajax({
-//                url: 'http://localhost/api/economischerisicos/xml/3012',
-//                type: 'PUT',
-//                data: "<rating><economischerisicos>22</economischerisicos><persoonskenmerken>39</persoonskenmerken><perioden>10</perioden><ongelukkig>10</ongelukkig><gelukkig>10</gelukkig><ontevreden>10</ontevreden><tevreden>10</tevreden></rating>"
-//                ,
-//                success: function(result, textStatus, request) {
-//                    document.write(result);
-//                    alert(request.status);
-//                }
-//            });
+            $.ajax({
+                url: 'http://localhost/Dataprocessing/economischerisicos/xml/2',
+                type: 'PUT',
+                data: "<ratings><rating><economischerisicos> 999 </economischerisicos><persoonskenmerken> 10001 </persoonskenmerken><perioden>2001JJ00</perioden><ongelukkig> 13 </ongelukkig><gelukkig> 87 </gelukkig><ontevreden> 17 </ontevreden><tevreden> 83 </tevreden></rating><rating><economischerisicos> 999 </economischerisicos><persoonskenmerken> 10001 </persoonskenmerken><perioden>2003JJ00</perioden><ongelukkig> 13 </ongelukkig><gelukkig> 87 </gelukkig><ontevreden> 17 </ontevreden><tevreden> 83 </tevreden></rating><rating><economischerisicos> 999 </economischerisicos><persoonskenmerken> 10001 </persoonskenmerken><perioden>2003JJ00</perioden><ongelukkig> 13 </ongelukkig><gelukkig> 87 </gelukkig><ontevreden> 17 </ontevreden><tevreden> 83 </tevreden></rating></ratings>"
+                ,
+                success: function(result, textStatus, request) {
+                    document.write(result);
+                    alert(request.status);
+                }
+            });
             
 
 //            $.ajax({

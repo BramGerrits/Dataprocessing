@@ -27,6 +27,8 @@
                 <xs:element name="rating" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
+                            <xs:element name="gezondheid_naam" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+                            
                             <xs:element name="gezondheid">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:integer">
@@ -48,6 +50,8 @@
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
+                            
+                            <xs:element name="persoonskenmerken_naam" type="xs:string"  minOccurs="0" maxOccurs="1"/>
                             
                             <xs:element name="persoonskenmerken">
                                 <xs:simpleType>

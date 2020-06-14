@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+    </head>
+    <body>
+        <div id="container" style="width: 100%; height: 450px;"></div>
+        <button id="showGraph">grafiek laten zien</button>
+        <script>
+            function validateJSON(table, JSON)
+            {
+                valid = 0;
+                        
+                $.ajax({
+                    url: 'http://localhost/api/validation/JS_draft07validate.php',
+                    type: 'POST',
+                    async: false,
+                    data: {
+                        "JSON": JSON,
+                        "table": table
+                    },
+                    success: function(result) {
+                        valid = result;
+                    }
+                });
+                
+                return valid;
+            }    
+
+            function gelukkigAvg(group)
+            {
+                for (x in group) 
+                {
+                    group[x] = Object.values(group[x]).reduce((avg, { gelukkig }, _, { length }) => avg + gelukkig / length, 0);
+                }
+                return group;
+            }
+            
+            var ratings1 = null;
+            var ratings2 = null;
+            
+            $.ajax({
+                url: 'http://localhost/Dataprocessing/gezondheid/json',
+                type: 'GET',
+                data: "",
+                success: function(result, textStatus, request) {
+                    if(validateJSON("gezondheid", result))
+                    {
+                        var json = result;
+
+                        var group = {};
+                        for (x in json.ratings) 
+                        {
+                            if(json.ratings[x].gezondheid_naam == "Roken: wel" && json.ratings[x].gelukkig != null)
+                            {
+                                var pK = json.ratings[x].persoonskenmerken_naam;
+                                group[pK] = group[pK] == null ? [] : group[pK]; 
+                                group[pK].push(json.ratings[x]);
+                            }
+                        }
+
+                        ratings1 = gelukkigAvg(group);
+                    }
+                }
+            });
+            
+            $.ajax({
+                url: 'http://localhost/Dataprocessing/economischerisicos/json',
+                type: 'GET',
+                data: "",
+                success: function(result, textStatus, request) {
+                    if(validateJSON("economischerisicos", result))
+                    {
+                        var json = result;
+
+                        var group = {};
+                        for (x in json.ratings) 
+                        {
+                            if(json.ratings[x].economischerisicos_naam == "Dienstverband: voltijd")
+                            {
+                                var pK = json.ratings[x].persoonskenmerken_naam;
+                                group[pK] = group[pK] == undefined ? [] : group[pK]; 
+                                group[pK].push(json.ratings[x]);
+                            }
+                        }
+
+                        ratings2 = gelukkigAvg(group);
+                    }
+                }
+            });
+            
+            $("#showGraph").on("click", function(){
+                var array = [];
+                var i = 0;
+                for(x in ratings1)
+                {
+                    array[i] = [x, Math.round(ratings1[x]), Math.round(ratings2[x])]
+                    i++;
+                }
+                
+                var data = anychart.data.set(array);
+                var chart = anychart.column();
+
+                var series1 = chart.column(data.mapAs({x: 0, value: 1}));
+                series1.name("Rokers");
+                series1.normal().fill("#00cc99", 1);
+
+                var series2 = chart.column(data.mapAs({x: 0, value: 2}));
+                series2.name("Dienstverband: voltijd");
+                series2.normal().fill("#0066cc", 1);
+
+                chart.title("Gelukkigheid: rokers en fulltime-werkers");
+                chart.xAxis().title("Persoonskenmerken");
+                chart.yAxis().title("Gelukkig, %");
+                chart.container("container");
+                chart.draw();
+            });
+        </script>
+    </body>
+</html>

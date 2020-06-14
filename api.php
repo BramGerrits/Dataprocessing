@@ -5,6 +5,86 @@
     include 'validation/XSDvalidate.php';
     include 'requestdata.php';
     
+    $codeGetal = [];
+    $codeGetal["persoonskenmerken"]["10001"] = "Totaal";
+    $codeGetal["persoonskenmerken"]["15400"] = "Mannen";
+    $codeGetal["persoonskenmerken"]["15450"] = "Vrouwen";
+    $codeGetal["persoonskenmerken"]["53110"] = "18 tot 35 jaar";
+    $codeGetal["persoonskenmerken"]["53705"] = "35 tot 50 jaar";
+    $codeGetal["persoonskenmerken"]["53850"] = "50 tot 65 jaar";
+    $codeGetal["persoonskenmerken"]["15700"] = "65 jaar of ouder";
+    $codeGetal["persoonskenmerken"]["12600"] = "Herkomst: autochtoon";
+    $codeGetal["persoonskenmerken"]["12650"] = "Herkomst: westerse allochtoon";
+    $codeGetal["persoonskenmerken"]["13000"] = "Herkomst: niet-westerse allochtoon";
+         
+    $codeGetal["economischerisicos"]["3456"] = "Dienstverband: flexibel";
+    $codeGetal["economischerisicos"]["9012"] = "Dienstverband: deeltijd";
+    $codeGetal["economischerisicos"]["5678"] = "Dienstverband: voltijd";
+    $codeGetal["economischerisicos"]["1234"] = "Financieelonafhankelijk: wel";
+    $codeGetal["economischerisicos"]["789"] = "Financieel onafhankelijk: niet";
+    $codeGetal["economischerisicos"]["456"] = "Economisch zelfstandig: wel";
+    $codeGetal["economischerisicos"]["123"] = "Economisch zelfstandig: niet";
+    $codeGetal["economischerisicos"]["999"] = "Totaal risico's";
+ 
+    $codeGetal["gezondheid"]["999"] = "Totaal gezondheid";
+    $codeGetal["gezondheid"]["123"] = "Gezondheid: zeer goed";
+    $codeGetal["gezondheid"]["456"] = "Gezondheid: goed";
+    $codeGetal["gezondheid"]["789"] = "Gezondheid: minder dan goed";
+    $codeGetal["gezondheid"]["1234"] = "Roken: niet";
+    $codeGetal["gezondheid"]["5678"] = "Roken: wel";
+    $codeGetal["gezondheid"]["12"] = "Alcoholgebruik: drinkt niet";
+    $codeGetal["gezondheid"]["34"] = "Alcoholgebruik: matige drinker <6 glazen per week";
+    $codeGetal["gezondheid"]["56"] = "Alcoholgebruik: zware drinker, 6>= glazen per week";
+    $codeGetal["gezondheid"]["901"] = "Gewicht: ondergewicht";
+    $codeGetal["gezondheid"]["234"] = "Gewicht: gezond gewicht";
+    $codeGetal["gezondheid"]["567"] = "Gewicht: overgewicht";
+    $codeGetal["gezondheid"]["890"] = "Gewicht: ernstig overgewicht"; 
+    $codeGetal["gezondheid"]["23"] = "Beweging: voldoet niet aan norm";
+    $codeGetal["gezondheid"]["45"] = "Beweging: voldoet aan norm";
+    
+    
+    $codeGetal["leefomgeving"]["999"] = "Totaal leefomgeving";
+    $codeGetal["leefomgeving"]["18550"] = "Stedelijkheid: zeer sterk stedelijk";
+    $codeGetal["leefomgeving"]["18900"] = "Stedelijkheid: sterk stedelijk";
+    $codeGetal["leefomgeving"]["18950"] = "Stedelijkheid: matig stedelijk";
+    $codeGetal["leefomgeving"]["19000"] = "Stedelijkheid: weinig stedelijk";
+    $codeGetal["leefomgeving"]["19050"] = "Stedelijkheid: niet stedelijk";
+    
+    
+    
+    function decode($code, $key)
+    {
+        global $codeGetal;
+        return $codeGetal[$key][$code];
+    }
+    
+    function decodeValues($array, $table)
+    {
+        $group = [];
+        $group[$table."_naam"] = decode($array[$table], $table);
+        $group[$table] = $array[$table];
+        $group["persoonskenmerken_naam"] = decode($array["persoonskenmerken"], "persoonskenmerken");
+        $group["persoonskenmerken"] = $array["persoonskenmerken"];
+        
+        unset($array[$table]);
+        unset($array["persoonskenmerken"]);
+        
+        $result = array_merge($group, $array);
+                
+        return $result;
+    }
+ 
+    function decodeValueArray($array, $table)
+    {
+        foreach($array as $key => $value)
+        {
+            $array[$key] = decodeValues($value, $table); 
+        }
+        return $array;
+    }
+    
+    
+    
     /**
     * function for the GET request, collects specified data from the database in the given format
     * 
@@ -22,14 +102,20 @@
         {
             if($format == "json")
             {
-                $json = JSON(getAll($table));
+                $array = getAll($table);
+                $array = decodeValueArray($array, $table);
+                $json = JSON($array);
+                
                 //if(JSON_validate($json, $table)){
                     $result = $json;
                 //}
             } 
             else
             {
-                $xml = createXMLbyArray($table, getAll($table));
+                $array = getAll($table);
+                $array = decodeValueArray($array, $table);
+                //var_export($array);
+                $xml = createXMLbyArray($table, $array);
                 
                 //if(XML_validate($xml, $table)){
                     $result = $xml;
@@ -39,15 +125,20 @@
         else
         {
             if($format == "json")
-            {
-                $json = JSON(getValue($table, $id));
+            {              
+                $array = getValue($table, $id);
+                $array = decodeValues($array, $table);
+                $json = JSON($array);
+                
                 //if(JSON_validate($json, $table)){
                     $result = $json;
                 //}   
             } 
             else
             {
-                $xml = createXMLbyId($table, $id);
+                $array = getValue($table, $id);
+                $array = decodeValues($array, $table);
+                $xml = createXmlByValue($array, $table);
                 //if(XML_validate($xml, $table)){
                     $result = $xml;
                 //}
@@ -69,42 +160,43 @@
     */ 
     function POST($table, $format, $data)
     {
-        if($format == "json")
+        if(isset($data["data"]))
         {
-            if(is_array($data) && isset($data))
-            {   
-                $json = $data["data"];
-                $json = str_replace ("_", " ", $json); //Lage strepen weghalen die kunnen voorkomen in een postman request
-                
-                if(JSON_validate($json, $table))
-                {
-                    $values = json_decode($json);
-                    
-                    foreach($values->ratings as $values)
+            if($format == "json")
+            {
+                if(is_array($data) && isset($data))
+                {   
+                    $json = $data["data"];
+                    $json = str_replace ("_", " ", $json); //Lage strepen weghalen die kunnen voorkomen in een postman request
+
+                    if(JSON_validate($json, $table))
                     {
-                        addTo($table, json_decode(json_encode($values), true));
+                        $values = json_decode($json);
+                        foreach($values->ratings as $values)
+                        {
+                            addTo($table, json_decode(json_encode($values), true));
+                        }
+                    }   
+                }
+            }
+            else
+            {
+                $xml = $data["data"];
+                $xml = str_replace ("_", " ", $xml); //Lage strepen weghalen die kunnen voorkomen in een postman request
+                $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
+
+                if(XML_validate($xml, $table))
+                {
+                    $obj = XMLtoValues($xml);
+                    foreach($obj as $values)
+                    {
+                        addTo($table, $values);
                     }
-                }   
+                }  
             }
         }
-        else
-        {
-            $xml = $data["data"];
-            $xml = str_replace ("_", " ", $xml); //Lage strepen weghalen die kunnen voorkomen in een postman request
-            $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
- 
-            if(XML_validate($xml, $table))
-            {
-                $obj = XMLtoValues($xml);
-                foreach($obj as $values)
-                {
-                    addTo($table, $values);
-                }
-            }  
-        }
-        
     }
     
     /**
@@ -120,65 +212,42 @@
     */ 
     function PUT($table, $format, $data, $id)
     {
-        if(isset($id))
+        if(isset($id) && isset($data["data"]))
         {
             if($format == "json")
             {
-                if(is_array($data) && isset($data))
+                $json = $data["data"];
+                $json = str_replace ("_", " ", $json); //Verwijderd lage strepen die kunnen voorkomen in een verzoek
+
+                if(JSON_validate($json, $table))
                 {
-                    
-                    $json = array_flip($data)[""]; 
-                    $json = str_replace ("_", " ", $json); //Verwijderd lage strepen die kunnen voorkomen in een verzoek
-                    
-                    //var_export($json);
-                    //var_dump($json);
-                    
-                    if(JSON_validate($json, $table))
-                    {
-                        $jsonArr = json_decode($json);                    
-                        $newValues = reset($jsonArr->ratings);
-                        //var_export($newValues);
-                        $newValues = json_decode(json_encode($newValues), true);
-                        
-                        updateValue($table, $newValues, $id);
-                    }  
-                    else{
-                        die("Invalid JSON input");
-                    }
-                }
+                    $jsonArr = json_decode($json);                    
+                    $newValues = reset($jsonArr->ratings);
+                    $newValues = json_decode(json_encode($newValues), true);
+
+                    updateValue($table, $newValues, $id);
+                }  
                 else
                 {
-                    die("No JSON input");
+                    die("Invalid JSON input");
                 }
             }
             else
             {
-                $input = isset(array_keys($data)[0]) ? array_keys($data)[0] : null;
-                if(is_string($input))
+                $xml = $data["data"];
+                $xml = str_replace ("_", " ", $xml);
+                $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                    xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
+
+                if(XML_validate($xml, $table))
                 {
-                    //$xml = $data;
-                    $xml = array_key_first($data);
-                    $xml = str_replace ("_", " ", $xml);
-                    $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                        xsi:noNamespaceSchemaLocation="XMLschema.xsd">', $xml);
-                    
-                    //var_export(XML_validate($xml, $table));
-                    
-                    if(XML_validate($xml, $table))
-                    {
-                        $values = XMLtoValues($xml);
-                        $values = isset($values[0]) ? $values[0] : $values; //Kijkt of er meerdere elementen zijn opgestuurd.
-                        //var_export($values);
-                        updateValue($table, $values, $id);
-                    }
-                    else{
-                        die("Invalid XML input");
-                    }
+                    $values = XMLtoValues($xml);
+                    $values = isset($values[0]) ? $values[0] : $values; //Kijkt of er meerdere elementen zijn opgestuurd.
+                    updateValue($table, $values, $id);
                 }
-                else 
-                {
-                    die("Input isn't a XML string or there is no input.");
+                else{
+                    die("Invalid XML input");
                 }
             }
         }

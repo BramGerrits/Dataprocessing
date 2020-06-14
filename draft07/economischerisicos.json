@@ -25,9 +25,15 @@
                     ],
                     "additionalProperties": false,
                     "properties": {
+                        "economischerisicos_naam": {
+                            "type": "string"
+                        },
                         "economischerisicos": {
                             "type": "integer",
                             "enum": [3456, 9012, 5678, 1234, 789, 456, 123, 999]
+                        },
+                        "persoonskenmerken": {
+                            "type": "string"
                         },
                         "persoonskenmerken": {
                             "type": "integer",

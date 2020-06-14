@@ -25,9 +25,15 @@
                     ],
                     "additionalProperties": false,
                     "properties": {
+                        "leefomgeving_naam": {
+                            "type": "string"
+                        },
                         "leefomgeving": {
                             "type": "integer",
                             "enum": [999, 18550, 18900, 18950, 19000, 19050]
+                        },
+                        "persoonskenmerken_naam": {
+                            "type": "string"
                         },
                         "persoonskenmerken": {
                             "type": "integer",

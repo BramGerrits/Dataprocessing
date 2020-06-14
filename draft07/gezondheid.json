@@ -25,9 +25,15 @@
                     ],
                     "additionalProperties": false,
                     "properties": {
+                        "gezondheid_naam": {
+                            "type": "string"
+                        },
                         "gezondheid": {
                             "type": "integer",
                             "enum": [999, 123, 456, 789, 1234, 5678, 12, 34, 56, 901, 234, 567, 890, 23, 45]
+                        },
+                        "persoonskenmerken_naam": {
+                            "type": "string"
                         },
                         "persoonskenmerken": {
                             "type": "integer",

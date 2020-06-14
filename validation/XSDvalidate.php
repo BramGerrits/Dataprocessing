@@ -11,7 +11,7 @@
     function XML_validate($xmlString, $schemaName)
     {
         $xmlDoc = new DOMDocument();
-
+                        
         libxml_use_internal_errors(true);
         
         $xmlDoc->loadXML($xmlString);

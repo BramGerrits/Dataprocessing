@@ -75,9 +75,9 @@
     * @author Bram Gerrits
     * @return A valid xml document
     */ 
-    function createXMLbyId($table, $id)
+    function createXmlByValue($array, $table)
     {
-        $result = XML(getValue($table, $id));
+        $result = XML($array);
         $result = XML_removeVersion($result);
         $result = XML_wrapRoot($result, $table);
         return $result;
