@@ -45,12 +45,30 @@
     $codeGetal["leefomgeving"]["19050"] = "Stedelijkheid: niet stedelijk";
     
     
-    
+    /**
+    * Translates a code and a key to a readable string
+    *
+    * @param $code        the code that will be translated
+    * @param $key         the key which contains the code
+    * 
+    * @author Bram Gerrits
+    * @return A readable string
+    */ 
     function translate($code, $key)
     {
         global $codeGetal;
         return $codeGetal[$key][$code];
     }
+    
+    /**
+    * Adds readable strings to a collection of element
+    *
+    * @param $array        the collection
+    * @param $table        the table, which will act as a key
+    * 
+    * @author Bram Gerrits
+    * @return A collection of readable string
+    */ 
     
     function translateValues($array, $table)
     {
@@ -68,6 +86,15 @@
         return $result;
     }
  
+    /**
+    * Adds readable strings to multiple collections of elements
+    *
+    * @param $array        the collections
+    * @param $table        the table, which will act as a key
+    * 
+    * @author Bram Gerrits
+    * @return A collection of arrays containing readable string
+    */ 
     function translateValueArray($array, $table)
     {
         foreach($array as $key => $value)

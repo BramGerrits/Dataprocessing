@@ -1,28 +1,25 @@
-<?xml version="1.0"?>
-<ratings xmlns="https://bramgerrits.com/"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="XMLschema.xsd">
-    <rating id="1">
+<ratings>
+    <rating>
         <leefomgeving> 999 </leefomgeving>
-        <persoonsKenmerken> 10001 </persoonsKenmerken>
+        <persoonskenmerken> 10001 </persoonskenmerken>
         <perioden>2003JJ00</perioden>
         <ongelukkig> 13 </ongelukkig>
         <gelukkig> 87 </gelukkig>
         <ontevreden> 17 </ontevreden>
         <tevreden> 83 </tevreden>
     </rating>
-    <rating id="2">
+    <rating>
       <leefomgeving> 999 </leefomgeving>
-      <persoonsKenmerken> 10001 </persoonsKenmerken>
+      <persoonskenmerken> 10001 </persoonskenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
       <gelukkig> 87 </gelukkig>
       <ontevreden> 17 </ontevreden>
       <tevreden> 83 </tevreden>
     </rating>
-    <rating id="3">
+    <rating>
       <leefomgeving> 999 </leefomgeving>
-      <persoonsKenmerken> 10001 </persoonsKenmerken>
+      <persoonskenmerken> 10001 </persoonskenmerken>
       <perioden>2003JJ00</perioden>
       <ongelukkig> 13 </ongelukkig>
       <gelukkig> 87 </gelukkig>

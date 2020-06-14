@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+    </head>
+    <body>
+        <textarea id="requestData" style="width: 500px; height: 500px;">
+<ratings>
+    <rating>
+        <economischerisicos> 999 </economischerisicos>
+        <persoonskenmerken> 10001 </persoonskenmerken>
+        <perioden>2003JJ00</perioden>
+        <ongelukkig> 13 </ongelukkig>
+        <gelukkig> 87 </gelukkig>
+        <ontevreden> 17 </ontevreden>
+        <tevreden> 83 </tevreden>
+    </rating>
+    <rating>
+      <economischerisicos> 999 </economischerisicos>
+      <persoonskenmerken> 10001 </persoonskenmerken>
+      <perioden>2003JJ00</perioden>
+      <ongelukkig> 13 </ongelukkig>
+      <gelukkig> 87 </gelukkig>
+      <ontevreden> 17 </ontevreden>
+      <tevreden> 83 </tevreden>
+    </rating>
+    <rating>
+      <economischerisicos> 999 </economischerisicos>
+      <persoonskenmerken> 10001 </persoonskenmerken>
+      <perioden>2003JJ00</perioden>
+      <ongelukkig> 13 </ongelukkig>
+      <gelukkig> 87 </gelukkig>
+      <ontevreden> 17 </ontevreden>
+      <tevreden> 83 </tevreden>
+    </rating>
+</ratings>
+        </textarea>
+        <select id="requestType">
+            <option>PUT</option>
+            <option>POST</option>
+            <option>GET</option>
+            <option>DELETE</option>
+        </select>
+        <input id="endPoint" style="width: 400px;" type="text" value="http://localhost/Dataprocessing/economischerisicos/xml/2">
+        <button id="sendRequest">request</button>
+        <script>
+            $("#sendRequest").on("click", function(){
+                alert("verzoek verstuurd");
+                
+                alert($("#endPoint").val());
+                alert($("#requestType").val());
+                alert($("#requestData").val());
+                
+                $.ajax({
+                    url: $("#endPoint").val(),
+                    type: $("#requestType").val(),
+                    data: { data: $("#requestData").val()},
+                    success: function(result, textStatus, request) {
+                        document.write(result);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

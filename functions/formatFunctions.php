@@ -16,7 +16,15 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
                     xsi:noNamespaceSchemaLocation="'.$schemaName.'.xsd">'.$xml."</ratings>";
     }
-    
+
+    /**
+    * Gives the root tag the missing attributes
+    *
+    * @param $xml        the xml code that will have some attributes added
+    * 
+    * @author Bram Gerrits
+    * @return A xml document which can be validated
+    */ 
     function XML_giveRoot($xml)
     {
         $xml = str_replace ("<ratings>", '<ratings xmlns="https://bramgerrits.com/"
@@ -131,6 +139,14 @@
         return $values;
     }
 
+    /**
+    * Parses outputted strings to integers
+    *
+    * @param $array        the array which will have it's strings parsed to integers
+    * 
+    * @author Bram Gerrits
+    * @return A valid xml document
+    */ 
     function arrayValuesToNumbers($array)
     {
         foreach ($array as $key => $value)

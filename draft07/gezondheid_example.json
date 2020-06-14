@@ -1,0 +1,35 @@
+{
+    "ratings": {
+        "1": {
+            "gezondheid": 999,
+            "persoonskenmerken": 10001,
+            "perioden": "2008JJ00",
+            "ongelukkig": 13,
+            "gelukkig": 87,
+            "ontevreden": 17,
+            "tevreden": 83
+        },
+        "2": {
+            "gezondheid_naam": "geen idee",
+            "gezondheid": 999,
+            "persoonskenmerken_naam": "verkeerd gespeld",
+            "persoonskenmerken": 10001,
+            "perioden": "2003JJ00",
+            "ongelukkig": 13,
+            "gelukkig": 87,
+            "ontevreden": 17,
+            "tevreden": 83
+        },
+        "3": {
+            "gezondheid_naam": "hoeft niet te kloppen",
+            "gezondheid": 999,
+            "persoonskenmerken_naam": "puur voor de output",
+            "persoonskenmerken": 10001,
+            "perioden": "2003JJ00",
+            "ongelukkig": 13,
+            "gelukkig": 87,
+            "ontevreden": 17,
+            "tevreden": 83
+        }
+    }
+}

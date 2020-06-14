@@ -1,18 +1,18 @@
 {
     "ratings": {
         "1": {
-            "economischerisicos": 999,
+            "leefomgeving": 999,
             "persoonskenmerken": 10001,
-            "perioden": "2006JJ00",
+            "perioden": "2008JJ00",
             "ongelukkig": 13,
             "gelukkig": 87,
             "ontevreden": 17,
             "tevreden": 83
         },
         "2": {
-            "economischerisicos_naam": "geen idee",
-            "economischerisicos": 999,
-            "persoonskenmerken_naam": "weet ik ook niet",
+            "leefomgeving_naam": "geen idee",
+            "leefomgeving": 999,
+            "persoonskenmerken_naam": "verkeerd gespeld",
             "persoonskenmerken": 10001,
             "perioden": "2003JJ00",
             "ongelukkig": 13,
@@ -21,9 +21,9 @@
             "tevreden": 83
         },
         "3": {
-            "economischerisicos_naam": "geen idee",
-            "economischerisicos": 999,
-            "persoonskenmerken_naam": "weet ik ook niet",
+            "leefomgeving_naam": "hoeft niet te kloppen",
+            "leefomgeving": 999,
+            "persoonskenmerken_naam": "puur voor de output",
             "persoonskenmerken": 10001,
             "perioden": "2003JJ00",
             "ongelukkig": 13,

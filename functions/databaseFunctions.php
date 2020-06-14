@@ -1,11 +1,5 @@
 <?php
     $conn = null;
- 
-    function createDatabase()
-    {
-        $sql = "CREATE DATABASE myDB";
-        $conn->query($sql);
-    }
     
     /**
     * Opens a connection to a database

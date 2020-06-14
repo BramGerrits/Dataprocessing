@@ -128,7 +128,7 @@
                     updateValue($table, $values, $id);
                 }
                 else
-                    {
+                {
                     die("Invalid XML input");
                 }
             }
@@ -177,62 +177,4 @@
             echo null;
             break;
     }
-    
-    //  https://www.liquid-technologies.com/online-json-schema-validator
-    //  https://www.freeformatter.com/xml-validator-xsd.html
-    
-    
-    
-    //JJ in perioden betekend dat het kwartaal niet bekend is.
-    
-
-    
-
-    
-    //Leefomgeving:
-    //999      Totaal leefomgeving
-    //18550    Stedelijkheid: zeer sterk stedelijk
-    //18900    Stedelijkheid: sterk stedelijk
-    //18950    Stedelijkheid: matig stedelijk
-    //19000    Stedelijkheid: weinig stedelijk
-    //19050    Stedelijkheid: niet stedelijk
-
-    //Gezondheid:
-    //999      Totaal gezondheid
-    //123      Gezondheid: zeer goed
-    //456      Gezondheid: goed
-    //789      Gezondheid: minder dan goed
-    //1234     Roken: niet
-    //5678     Roken: wel
-    //12       Alcoholgebruik: drinkt niet
-    //34       Alcoholgebruik: matige drinker <6 glazen per week
-    //56       Alcoholgebruik: zware drinker, 6>= glazen per week
-    //901      Gewicht: ondergewicht
-    //234      Gewicht: gezond gewicht
-    //567      Gewicht: overgewicht
-    //890      Gewicht: ernstig overgewicht
-    //23       Beweging: voldoet niet aan norm
-    //45       Beweging: voldoet aan norm
-
-    //Economisch risico:
-    //3456     Dienstverband: flexibel
-    //9012     Dienstverband: deeltijd
-    //5678     Dienstverband: voltijd
-    //1234     Financieelonafhankelijk: wel
-    //789      Financieel onafhankelijk: niet
-    //456      Economisch zelfstandig: wel
-    //123      Economisch zelfstandig: niet
-    //999      Totaal risico's (totaal van alle bij elkaar)
-    
-    //Persoonskenmerken:
-    //10001    Totaal personen
-    //15400    Mannen
-    //15450    Vrouwen
-    //53110    18 tot 35 jaar
-    //53705    35 tot 50 jaar
-    //53850    50 tot 65 jaar
-    //15700    65 jaar of ouder
-    //12600    Herkomst: autochtoon
-    //12650    Herkomst: westerse allochtoon
-    //13000    Herkomst: niet-westerse allochtoon
 ?>
