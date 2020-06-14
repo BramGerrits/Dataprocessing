@@ -1,10 +1,11 @@
 <?php    
-    include 'databaseFunctions.php';
-    include 'formatFunctions.php';
     include 'validation/draft07validate.php';
     include 'validation/XSDvalidate.php';
-    include 'requestdata.php';
-    include 'translateFunctions.php';
+    
+    include 'functions/databaseFunctions.php';
+    include 'functions/formatFunctions.php';
+    include 'functions/requestDataFunctions.php';
+    include 'functions/translateFunctions.php';
 
     
     /**
@@ -126,7 +127,8 @@
                     $values = isset($values[0]) ? $values[0] : $values; //Kijkt of er meerdere elementen zijn opgestuurd.
                     updateValue($table, $values, $id);
                 }
-                else{
+                else
+                    {
                     die("Invalid XML input");
                 }
             }
@@ -182,7 +184,6 @@
     
     
     //JJ in perioden betekend dat het kwartaal niet bekend is.
-    //Het cbs beschrijft het ecnomischrisico en persoonkenmerken type als een 'dimension'
     
 
     
